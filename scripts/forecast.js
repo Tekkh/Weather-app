@@ -1,4 +1,4 @@
-class Forecat{
+class Forecast{
     constructor(){
         this.key = 'TeLv0q740Nz3rdbY3Fhee8jkOVdhnOmo';
         this.weatherURI = 'http://dataservice.accuweather.com/currentconditions/v1/';
@@ -12,36 +12,15 @@ class Forecat{
     async getCity(city){
        
         const query = `?apikey=${this.key}&q=${city}`;
-        const response = await fetch(cityURI + query)
+        const response = await fetch(this.cityURI + query)
         const data = await response.json(); 
         return data[0];
-
+    }
+    async getWeather(id){
+        const query = `${id}?apikey=${this.key}`;
+        const response = await fetch (this.weatherURI + query);
+        const data = await response.json();
+        return data[0];
     }
 }
 
-const key = 'TeLv0q740Nz3rdbY3Fhee8jkOVdhnOmo';
-
-// weather information
-const getWeather = async (id) => {
-
-    const base = 'http://dataservice.accuweather.com/currentconditions/v1/';
-    const query = `${id}?apikey=${key}`;
-
-    const response = await fetch (base + query);
-    const data = await response.json();
-
-    return data[0];
-};
-
-// city information
-const getCity = async (city) => {
-
-    
-};
-
-getCity('oujda').then(data => {
-    return getWeather(data.Key);    
-}).then(data => {
-    console.log(data);
-})
-    .catch(err => console.log(err));
